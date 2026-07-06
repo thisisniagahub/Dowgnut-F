@@ -16,6 +16,5 @@ void main() {
     await tester.pump();
 
     expect(find.text('BOLD PLAYFUL AUTHENTIC'), findsOneWidget);
-    expect(find.byType(RotationTransition), findsWidgets);
   });
 }

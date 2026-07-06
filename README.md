@@ -99,7 +99,7 @@ web/icons/
 Brand phrase:
 
 ```text
-BOLD PLAYFUL AUTHENTIC
+GOOD VIBES & GOOD DOWG
 ```
 
 ---

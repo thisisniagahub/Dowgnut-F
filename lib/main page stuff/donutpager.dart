@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/donutpage.dart';
+import '../theme/ascii_donut.dart';
 import '../theme/dowgnut_logo.dart';
 import '../theme/dowgnut_theme.dart';
 import '../utilities.dart';
@@ -14,7 +15,7 @@ class DonutPager extends StatefulWidget {
 
 class _DonutPagerState extends State<DonutPager> {
   int _currentPage = 0;
-  PageController? _controller;
+  late final PageController _controller;
   final List<DonutPage> pages = [
     DonutPage(imgUrl: Utils.donutPromo1, logoUrl: Utils.donutLogoWhiteText),
     DonutPage(imgUrl: Utils.donutPromo2, logoUrl: Utils.donutLogoWhiteText),
@@ -29,7 +30,7 @@ class _DonutPagerState extends State<DonutPager> {
 
   @override
   void dispose() {
-    _controller!.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -55,7 +56,6 @@ class _DonutPagerState extends State<DonutPager> {
             children: List.generate(pages.length, (index) {
               DonutPage currentPage = pages[index];
               return Container(
-                alignment: Alignment.bottomLeft,
                 margin: const EdgeInsets.all(20),
                 padding: const EdgeInsets.all(30),
                 decoration: BoxDecoration(
@@ -69,23 +69,62 @@ class _DonutPagerState extends State<DonutPager> {
                     image: DecorationImage(
                         image: NetworkImage(currentPage.imgUrl),
                         fit: BoxFit.cover)),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: DowgNutColors.neonLime.withOpacity(0.92),
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: const DowgNutLogo(size: 38),
+                child: Stack(
+                  children: [
+                    const Align(
+                      alignment: Alignment.topRight,
+                      child: _PromoAsciiDonut(),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: DowgNutColors.neonLime.withOpacity(0.92),
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: const DowgNutLogo(size: 38),
+                      ),
+                    ),
+                  ],
                 ),
               );
             }),
           )),
           PageViewIndicator(
-              pageController: _controller!,
+              pageController: _controller,
               currentPage: _currentPage,
               numberOfPages: pages.length),
         ],
+      ),
+    );
+  }
+}
+
+class _PromoAsciiDonut extends StatelessWidget {
+  const _PromoAsciiDonut();
+
+  @override
+  Widget build(BuildContext context) {
+    final bool compact = MediaQuery.sizeOf(context).width < 430;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Utils.mainDark.withOpacity(0.78),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: DowgNutColors.neonLime.withOpacity(0.70),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: AsciiDonutWidget(
+          fontSize: compact ? 3.0 : 3.8,
+          width: compact ? 34 : 40,
+          height: compact ? 16 : 18,
+          useBrandGradient: true,
+        ),
       ),
     );
   }
