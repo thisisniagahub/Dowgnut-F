@@ -48,3 +48,8 @@ analyze_results*.txt
 CODE_REVIEW_*.md
 dowgnut_brand_guidelines*.png
 photo_2026-07-05_22-35-38.jpg
+.output/
+.playwright-cli/
+21cda98ae115a6f5fb6f389364cdb225.jpg
+# Vercel build cache
+.vercel/
