@@ -31,9 +31,9 @@ class _DonutShopMainState extends State<DonutShopMain> {
         body: Column(
           children: [
             Expanded(
-              child: Navigator(
-                key: Utils.mainListnav,
-                initialRoute: '/main',
+                          child: Navigator(
+                            key: Utils.mainListNav,
+                            initialRoute: '/main',
                 onGenerateRoute: (settings) {
                   Widget page;
                   switch (settings.name) {

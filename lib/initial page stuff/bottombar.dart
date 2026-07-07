@@ -24,9 +24,10 @@ class DonutBottomBar extends StatelessWidget {
                       ? Utils.mainDark
                       : Utils.mainColor,
                 ),
-                onPressed: (() {
+                onPressed: () {
                   value.setTabSelection('main');
-                }),
+                },
+                tooltip: 'Utama',
               ),
               IconButton(
                   onPressed: () {
@@ -37,7 +38,8 @@ class DonutBottomBar extends StatelessWidget {
                     color: value.tabSelection == 'favorite'
                         ? Utils.mainDark
                         : Utils.mainColor,
-                  )),
+                  ),
+                  tooltip: 'Kegemaran'),
               IconButton(
                   onPressed: () {
                     value.setTabSelection('shoppingCart');
@@ -47,7 +49,8 @@ class DonutBottomBar extends StatelessWidget {
                     color: value.tabSelection == 'shoppingCart'
                         ? Utils.mainDark
                         : Utils.mainColor,
-                  ))
+                  ),
+                  tooltip: 'Keranjang'),
             ],
           );
         },

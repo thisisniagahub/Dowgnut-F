@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/donutpage.dart';
-import '../theme/ascii_donut.dart';
 import '../theme/dowgnut_logo.dart';
 import '../theme/dowgnut_theme.dart';
 import '../utilities.dart';
@@ -62,32 +61,24 @@ class _DonutPagerState extends State<DonutPager> {
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                           blurRadius: 10,
                           offset: const Offset(0.0, 5.0))
                     ],
                     image: DecorationImage(
                         image: NetworkImage(currentPage.imgUrl),
                         fit: BoxFit.cover)),
-                child: Stack(
-                  children: [
-                    const Align(
-                      alignment: Alignment.topRight,
-                      child: _PromoAsciiDonut(),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: DowgNutColors.neonLime.withValues(alpha: 0.92),
+                      borderRadius: BorderRadius.circular(18),
                     ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 14, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: DowgNutColors.neonLime.withOpacity(0.92),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: const DowgNutLogo(size: 38),
-                      ),
-                    ),
-                  ],
+                    child: const DowgNutLogo(size: 38),
+                  ),
                 ),
               );
             }),
@@ -97,34 +88,6 @@ class _DonutPagerState extends State<DonutPager> {
               currentPage: _currentPage,
               numberOfPages: pages.length),
         ],
-      ),
-    );
-  }
-}
-
-class _PromoAsciiDonut extends StatelessWidget {
-  const _PromoAsciiDonut();
-
-  @override
-  Widget build(BuildContext context) {
-    final bool compact = MediaQuery.sizeOf(context).width < 430;
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Utils.mainDark.withOpacity(0.78),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: DowgNutColors.neonLime.withOpacity(0.70),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: AsciiDonutWidget(
-          fontSize: compact ? 3.0 : 3.8,
-          width: compact ? 34 : 40,
-          height: compact ? 16 : 18,
-          useBrandGradient: true,
-        ),
       ),
     );
   }
@@ -160,7 +123,7 @@ class PageViewIndicator extends StatelessWidget {
             decoration: BoxDecoration(
                 color: currentPage == index
                     ? Utils.mainColor
-                    : Colors.grey.withOpacity(0.2),
+                    : Colors.grey.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(15)),
           ),
         );

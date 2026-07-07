@@ -109,10 +109,10 @@ class _DonutShoppingCartPageState extends State<DonutShoppingCartPage>
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: value.cartDonuts.isEmpty
-                              ? Colors.grey.withOpacity(0.4)
-                              : Utils.mainColor.withOpacity(0.4),
-                          borderRadius: BorderRadius.circular(25)),
+                                                color: value.cartDonuts.isEmpty
+                                                    ? Colors.grey.withValues(alpha: 0.4)
+                                                    : Utils.mainColor.withValues(alpha: 0.4),
+                                                borderRadius: BorderRadius.circular(25)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

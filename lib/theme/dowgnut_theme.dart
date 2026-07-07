@@ -1,6 +1,6 @@
 // DowgNut brand theme — extracted from b68372d3-09ce-4dae-a36e-e949f9dddae2.jpg
 // Palette: DowgNut Blue • Frosting Pink • Neon Lime • Dark Navy
-// Tagline: BOLD PLAYFUL AUTHENTIC
+// Tagline: GOOD VIBES & GOOD DOWG
 
 import 'package:flutter/material.dart';
 
@@ -37,6 +37,23 @@ class DowgNutColors {
   static const Color onPrimary = Colors.white;
   static const Color onBackground = graffitiNavy;
   static const Color surface = Color(0xFFFFF9E8);
+}
+
+class DowgNutText {
+  static const String tagline = 'GOOD VIBES & GOOD DOWG';
+  static const String taglineFontFamily = 'CaveatBrush';
+  static const List<Shadow> taglineShadows = [
+    Shadow(
+      color: DowgNutColors.graffitiNavyDark,
+      blurRadius: 2,
+      offset: Offset(1, 2),
+    ),
+    Shadow(
+      color: DowgNutColors.hotPinkIcing,
+      blurRadius: 8,
+      offset: Offset(0, 0),
+    ),
+  ];
 }
 
 class DowgNutTheme {
@@ -80,11 +97,11 @@ class DowgNutTheme {
         foregroundColor: Colors.white,
       ),
       cardTheme: CardTheme(
-        color: DowgNutColors.surface,
-        elevation: 4,
-        shadowColor: DowgNutColors.graffitiNavy.withOpacity(0.15),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      ),
+              color: DowgNutColors.surface,
+              elevation: 4,
+              shadowColor: DowgNutColors.graffitiNavy.withValues(alpha: 0.15),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            ),
       iconTheme: const IconThemeData(
         color: DowgNutColors.graffitiNavy,
       ),

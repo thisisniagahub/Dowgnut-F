@@ -6,8 +6,8 @@ import 'theme/dowgnut_theme.dart';
 class Utils {
   static final GlobalKey<NavigatorState> mainAppNav =
       GlobalKey<NavigatorState>();
-  static GlobalKey<NavigatorState> mainListnav =
-      GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> mainListNav =
+      GlobalKey<NavigatorState>(); // renamed + final
 
   // DowgNut brand colors — matched to graffiti brand image
   static const Color mainColor = DowgNutColors.graffitiNavy;

@@ -1,5 +1,13 @@
+import 'package:donut_app/models/donutmodel.dart';
+
 class DonutPage {
-  String imgUrl;
-  String logoUrl;
-  DonutPage({required this.imgUrl, required this.logoUrl});
+  final String imgUrl;
+  final String logoUrl;
+  final List<DonutModel> donuts;
+
+  DonutPage({
+    required this.imgUrl,
+    required this.logoUrl,
+    this.donuts = const [],
+  });
 }

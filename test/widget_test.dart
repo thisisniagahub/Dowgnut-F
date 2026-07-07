@@ -9,12 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:donut_app/splashpage.dart';
+import 'package:donut_app/theme/dowgnut_theme.dart';
 
 void main() {
-  testWidgets('Splash screen displays brand tagline', (WidgetTester tester) async {
+  testWidgets('Splash screen displays brand tagline',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const MaterialApp(home: SplashPage()));
     await tester.pump();
 
-    expect(find.text('BOLD PLAYFUL AUTHENTIC'), findsOneWidget);
+    expect(find.text(DowgNutText.tagline), findsOneWidget);
   });
 }

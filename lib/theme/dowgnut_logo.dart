@@ -106,7 +106,7 @@ class _DrippingDonutPainter extends CustomPainter {
     canvas.drawCircle(Offset(cx, cy), radius * 0.25, holeOutline);
 
     // ── 6. Highlight dot (shine) ──
-    final shinePaint = Paint()..color = Colors.white.withOpacity(0.5);
+    final shinePaint = Paint()..color = Colors.white.withValues(alpha: 0.5);
     canvas.drawCircle(
       Offset(cx - radius * 0.25, cy - radius * 0.30),
       radius * 0.08,

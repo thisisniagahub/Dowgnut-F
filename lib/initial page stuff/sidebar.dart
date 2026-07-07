@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../theme/dowgnut_logo.dart';
 import '../theme/dowgnut_theme.dart';
-import '../utilities.dart';
 
 class DonutSideMenu extends StatelessWidget {
   const DonutSideMenu({super.key});
@@ -22,13 +21,16 @@ class DonutSideMenu extends StatelessWidget {
           ),
           DowgNutLogo(size: 36, showText: false),
           Text(
-            'BOLD PLAYFUL\nAUTHENTIC',
+            'GOOD VIBES &\nGOOD DOWG',
+            semanticsLabel: DowgNutText.tagline,
             style: TextStyle(
-              color: Utils.mainDark,
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              height: 0.95,
-              letterSpacing: -0.8,
+              color: Colors.white,
+              fontFamily: DowgNutText.taglineFontFamily,
+              fontSize: 32,
+              fontWeight: FontWeight.w400,
+              height: 0.92,
+              letterSpacing: 0.5,
+              shadows: DowgNutText.taglineShadows,
             ),
           )
         ],

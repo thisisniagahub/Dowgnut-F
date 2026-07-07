@@ -46,12 +46,12 @@ class DonutShoppingListRow extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                          width: 2,
-                          color: Utils.mainDark.withOpacity(0.2))),
-                  child: Text(donut.price.toStringAsFixed(2),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Utils.mainDark.withOpacity(0.4))),
+                                                width: 2,
+                                                color: Utils.mainDark.withValues(alpha: 0.2))),
+                                        child: Text(donut.price.toStringAsFixed(2),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Utils.mainDark.withValues(alpha: 0.4))),
                 ),
                 const SizedBox(
                   height: 10,

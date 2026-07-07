@@ -22,25 +22,17 @@ class AsciiDonutWidget extends StatefulWidget {
   State<AsciiDonutWidget> createState() => _AsciiDonutWidgetState();
 }
 
-class _AsciiDonutWidgetState extends State<AsciiDonutWidget> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  double _rotationA = 0.0;
-  double _rotationB = 0.0;
+class _AsciiDonutWidgetState extends State<AsciiDonutWidget>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    // Smooth infinite rotation matching visual clock tick
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 10),
-    )..addListener(() {
-        setState(() {
-          _rotationA += 0.04;
-          _rotationB += 0.025;
-        });
-      });
-    _controller.repeat();
+      duration: const Duration(seconds: 32),
+    )..repeat();
   }
 
   @override
@@ -49,9 +41,10 @@ class _AsciiDonutWidgetState extends State<AsciiDonutWidget> with SingleTickerPr
     super.dispose();
   }
 
-  String _renderFrame(double rotationA, double rotationB, int width, int height) {
-    const double thetaSpacing = 0.07;
-    const double phiSpacing = 0.02;
+  String _renderFrame(
+      double rotationA, double rotationB, int width, int height) {
+    const double thetaSpacing = 0.08;
+    const double phiSpacing = 0.035;
 
     const double tubeRadius = 1.0;
     const double ringRadius = 2.0;
@@ -83,9 +76,12 @@ class _AsciiDonutWidgetState extends State<AsciiDonutWidget> with SingleTickerPr
         final double circley = tubeRadius * sintheta;
 
         // final 3D (x,y,z) coordinate after rotations
-        final double x = circlex * (cosB * cosphi + sinA * sinB * sinphi) - circley * cosA * sinB;
-        final double y = circlex * (sinB * cosphi - sinA * cosB * sinphi) + circley * cosA * cosB;
-        final double z = viewerDistance + cosA * circlex * sinphi + circley * sinA;
+        final double x = circlex * (cosB * cosphi + sinA * sinB * sinphi) -
+            circley * cosA * sinB;
+        final double y = circlex * (sinB * cosphi - sinA * cosB * sinphi) +
+            circley * cosA * cosB;
+        final double z =
+            viewerDistance + cosA * circlex * sinphi + circley * sinA;
         final double ooz = 1.0 / z; // "one over z"
 
         // x and y projection.
@@ -98,16 +94,20 @@ class _AsciiDonutWidgetState extends State<AsciiDonutWidget> with SingleTickerPr
           final int idx = xp + yp * width;
 
           // calculate luminance
-          final double L = cosphi * costheta * sinB - cosA * costheta * sinphi -
-              sinA * sintheta + cosB * (cosA * sintheta - costheta * sinA * sinphi);
+          final double L = cosphi * costheta * sinB -
+              cosA * costheta * sinphi -
+              sinA * sintheta +
+              cosB * (cosA * sintheta - costheta * sinA * sinphi);
 
           if (L > 0) {
             if (ooz > zbuffer[idx]) {
               zbuffer[idx] = ooz;
-              final int luminanceIndex = (L * 8.0).toInt();
-              final int clampedLuminance = luminanceIndex.clamp(0, 11);
-              // Use classic 12-character luminance scale
-              const String charPalette = ".,-~:;=!*#\$@";
+              const String charPalette = ".:-=+*#%@";
+              final int clampedLuminance =
+                  (L * (charPalette.length - 1)).round().clamp(
+                        0,
+                        charPalette.length - 1,
+                      );
               output[idx] = charPalette[clampedLuminance];
             }
           }
@@ -129,36 +129,53 @@ class _AsciiDonutWidgetState extends State<AsciiDonutWidget> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final String asciiArt =
-        _renderFrame(_rotationA, _rotationB, widget.width, widget.height);
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          final double progress = _controller.value * math.pi * 2;
+          final String asciiArt = _renderFrame(
+            1.5 + progress * 0.70,
+            0.5 + progress * 0.45,
+            widget.width,
+            widget.height,
+          );
 
-    final Widget textWidget = Text(
-      asciiArt,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: widget.fontSize,
-        height: 1.0,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 0.0,
-        color: widget.useBrandGradient ? Colors.white : (widget.color ?? DowgNutColors.graffitiNavy),
+          final Widget textWidget = Text(
+            asciiArt,
+            textAlign: TextAlign.center,
+            softWrap: false,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: widget.fontSize,
+              height: 1.0,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.0,
+              color: widget.useBrandGradient
+                  ? Colors.white
+                  : (widget.color ?? DowgNutColors.graffitiNavy),
+            ),
+          );
+
+          if (!widget.useBrandGradient) {
+            return textWidget;
+          }
+
+          return ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [
+                DowgNutColors.graffitiNavyDark,
+                DowgNutColors.graffitiNavy,
+                DowgNutColors.hotPinkIcing,
+                DowgNutColors.graffitiNavyLight,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(bounds),
+            child: textWidget,
+          );
+        },
       ),
     );
-
-    if (widget.useBrandGradient) {
-      return ShaderMask(
-        shaderCallback: (bounds) => const LinearGradient(
-          colors: [
-            DowgNutColors.graffitiNavy,
-            DowgNutColors.hotPinkIcing,
-            DowgNutColors.neonLime,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ).createShader(bounds),
-        child: textWidget,
-      );
-    }
-
-    return textWidget;
   }
 }

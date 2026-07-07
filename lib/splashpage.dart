@@ -46,9 +46,9 @@ class _SplashPageState extends State<SplashPage> {
             Container(
               padding: const EdgeInsets.all(10),
               child: const AsciiDonutWidget(
-                fontSize: 6.5,
-                width: 52,
-                height: 26,
+                fontSize: 7.2,
+                width: 48,
+                height: 22,
                 useBrandGradient: true,
               ),
             ),
@@ -56,13 +56,15 @@ class _SplashPageState extends State<SplashPage> {
             const DowgNutLogo(size: 92, showText: true),
             const SizedBox(height: 12),
             const Text(
-              'BOLD PLAYFUL AUTHENTIC',
+              DowgNutText.tagline,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: DowgNutColors.graffitiNavyDark,
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.2,
+                color: Colors.white,
+                fontFamily: DowgNutText.taglineFontFamily,
+                fontSize: 26,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.7,
+                shadows: DowgNutText.taglineShadows,
               ),
             ),
           ],
@@ -71,4 +73,3 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 }
-
